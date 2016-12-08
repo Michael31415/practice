@@ -1,3 +1,4 @@
+<<<<<<< 57584966ca2be321d08b458403e5f791a1d7e140
 function [interpolationSpline, splineFunction] = CreateSpline(points, func, leftCondition)
 	if strcmp(class(func), 'function_handle')
 		values = arrayfun(func, points);
@@ -15,6 +16,7 @@ function [interpolationSpline, splineFunction] = CreateSpline(points, func, left
 	matrix = CreateSEMatrix(points, values, leftCondition);
 	solution = SolveSE(matrix);
 	interpolationSpline = FormSpline(points, values, solution);
+<<<<<<< 57584966ca2be321d08b458403e5f791a1d7e140
 	splineFunction = @(derivative, t)(EvaluateSpline(points, interpolationSpline, derivative, t));
 end;
 
@@ -54,4 +56,6 @@ function [row, relativeValue] = SelectRow(points, interpolationSpline, t)
 	row = interpolationSpline(end, :);
 	points = points(points >= 0);
 	relativeValue = points(end);
+=======
+>>>>>>> Done
 end;

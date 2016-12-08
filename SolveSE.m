@@ -1,7 +1,7 @@
 function solution = SolveSE(matrix)
 	[rows, cols] = size(matrix);
 	core = matrix(:, 1 : rows);
-	if core == conj(core')
+	if max(abs(core - conj(core'))) < 1e-10
 		% for used formulae see Popov's book
 		D = zeros(rows, 1);
 		S = zeros(rows);
