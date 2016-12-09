@@ -28,7 +28,7 @@
 \@setfontsize\normalsize{14pt}{15pt}}
 \makeatother
 
-\newcommand\makelisting[1]{\lstinputlisting[title=#1]{../#1}}
+\newcommand\makelisting[1]{\lstinputlisting[title=#1]{../#1} \vspace{1cm}}
 
 \preauthor{\begin{flushright}}
 \postauthor{\end{flushright}}
@@ -42,19 +42,19 @@
 \begin{document}
 
 \title{\normalsize Лабораторна робота учбової практики}
-\author{\vspace{5cm}Виконав: \protect\\ студент 4-го курсу \protect\\ спеціальність !!! \protect\\ ПІБ}
+\author{\vspace{5cm}Виконав: \protect\\ студент 4-го курсу \protect\\ спеціальність математика \protect\\ Шатохін Михайло}
 \date{}
 \maketitle
 \section{Постановка задачі}
-Необхідно побудувати інтерполяційний сплайн $S(x, u)$ !!! степеня дефекту 1, з крайовими умовами типу !!!.
+Необхідно побудувати інтерполяційний сплайн $S(x, u)$ другого степеня дефекту 1, з крайовими умовами типу II.
 \section{Код}
 Функція, що здійснює перевірку правильності побудови сплайну: побудову графіків та розрахунок сіткової норми.
 \makelisting{main.m}
 Функція, що здійснює побудову сплайна.
 \makelisting{CreateSpline.m}
-Побудова матриці відповідно до методу побудови системи лінійний рівнянь, що зазначений в умові.
+Побудова матриці за допомогою других похідних $M_i$.
 \makelisting{CreateSEMatrix.m}
-Розв'язання системи лінійних рівнянь за допомогою зазначеного в умові методу
+Розв'язання системи лінійних рівнянь за допомогою методу квадратного кореня.
 \makelisting{SolveSE.m}
 Формування коефіцієнтів сплайну.
 \makelisting{FormSpline.m}
