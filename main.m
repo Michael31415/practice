@@ -1,5 +1,4 @@
 function [] = main(func, points, plotPoints, leftCondition)
-<<<<<<< 57584966ca2be321d08b458403e5f791a1d7e140
 	if ~exist('func')
 		func = @(t)(sin(t^2));
 	end;
