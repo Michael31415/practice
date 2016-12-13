@@ -9,7 +9,7 @@ function [] = main(func, points, plotPoints, condition)
 		plotPoints = 0 : 0.001 : 5;
 	end;
 	if ~exist('condition')
-		condition = 0;
+		condition = [0, 0];
 	end;
 
 	[interpolationSpline, splineFunc] = CreateSpline(points, func, condition);
