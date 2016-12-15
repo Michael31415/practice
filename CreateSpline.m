@@ -1,4 +1,4 @@
-%spl_21
+%spl_22
 function [interpolationSpline, splineFunction] = CreateSpline(points, func, condition)
 	if strcmp(class(func), 'function_handle')
 		values = arrayfun(func, points);

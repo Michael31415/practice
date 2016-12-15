@@ -25,7 +25,7 @@ function [] = main(func, points, plotPoints, condition)
 		plot(plotPoints, arrayfun(splineVal, plotPoints), 'k', points, arrayfun(func, points), 'kx');
 		legend('interpolation spline', 'pivot points', 'location', 'southoutside');
 	end;
-	title(sprintf('Maximal deviation: %e', max(abs(arrayfun(func, points) - arrayfun(splineVal, points)))));
+	title(sprintf('Maximal deviation: %e', max(abs(arrayfun(func, plotPoints) - arrayfun(splineVal, plotPoints)))));
 	grid minor;
 	print -dpdf ./result.pdf;
 	figure('units','normalized','outerposition',[0 0 1 1], 'paperorientation', 'landscape');

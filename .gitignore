@@ -1,4 +1,4 @@
 **/*.aux
 **/*.log
 **/*.gz
-**/*.pdf
+**/.DS_Store
