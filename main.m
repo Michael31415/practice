@@ -1,12 +1,12 @@
 function [] = main(func, points, plotPoints, condition)
 	if ~exist('func')
-		func = @(t)(sin(t^2));
+		func = @(t)(sin(2 * t) * sign(sin(t)));
 	end;
 	if ~exist('points')
-		points = sqrt(0 : 0.05 : 1) * 5;
+		points = 0 : 0.1 : 10;
 	end;
 	if ~exist('plotPoints')
-		plotPoints = 0 : 0.001 : 5;
+		plotPoints = 0 : 0.01 : 10;
 	end;
 	if ~exist('condition')
 		condition = [0, 0];
