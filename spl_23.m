@@ -20,9 +20,9 @@ function res = spl_23(X, u, T)
 
 	[r, c] = size(m);
 	m = m / (norm(m, 1));
-	core = diag(ones(r, 1)) - m(:, 1 : r);
-	b = solve(diag(ones(r, 1)) - tril(core, -1), m(:, r + 1 : end));
-	next = @(t)(solve(diag(ones(r, 1)) - tril(core, -1), triu(core) * t) + b);
+	B = diag(ones(r, 1)) - m(:, 1 : r);
+	b = solve(diag(ones(r, 1)) - tril(B, -1), m(:, r + 1 : end));
+	next = @(t)(solve(diag(ones(r, 1)) - tril(B, -1), triu(B) * t) + b);
 	app = zeros(r, c - r);
 	for i = 1 : 1000
 		t = next(app);
