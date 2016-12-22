@@ -1,5 +1,4 @@
-%spl_22
-function [interpolationSpline, splineFunction] = CreateSpline(points, func, condition)
+function [interpolationSpline, splineFunction] = CreateSpline(points, func)
 	if strcmp(class(func), 'function_handle')
 		values = arrayfun(func, points);
 	elseif length(func) == length(points)
@@ -14,8 +13,8 @@ function [interpolationSpline, splineFunction] = CreateSpline(points, func, cond
 		values = values';
 	end;
 
-	[matrix, splinePoints] = CreateSEMatrix(points, values, condition);
-	solution = SolveSE(matrix);
+	[matrix, splinePoints] = CreateSEMatrix(points, values);
+	[solution, it] = SolveSE(matrix, 1);
 	interpolationSpline = FormSpline(points, values, solution);
 	splineFunction = @(derivative, t)(EvaluateSpline(points, splinePoints, interpolationSpline, derivative, t));
 end;

@@ -1,18 +1,16 @@
-function [] = main(func, points, plotPoints, condition)
+function [] = main(func, points, plotPoints)
 	if ~exist('func')
-		func = @(t)(sin(t^2));
+		func = @(t)(t * (1 - t));
 	end;
 	if ~exist('points')
-		points = sqrt(0 : 0.05 : 1) * 5;
+		%points = sqrt(0 : 0.05 : 1) * 5;
+		points = 0:0.1:1;
 	end;
 	if ~exist('plotPoints')
-		plotPoints = 0 : 0.001 : 5;
-	end;
-	if ~exist('condition')
-		condition = [0, 0];
+		plotPoints = 0 : 0.001 : 1;
 	end;
 
-	[interpolationSpline, splineFunc] = CreateSpline(points, func, condition);
+	[interpolationSpline, splineFunc] = CreateSpline(points, func);
 	splineVal = @(t)(splineFunc(0, t));
 	splineDerivative = @(t)(splineFunc(1, t));
 	splineSecondDerivative = @(t)(splineFunc(2, t));

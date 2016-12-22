@@ -1,27 +1,25 @@
-function solution = SolveSE(matrix)
+function [solution, iterationsElapsed] = SolveSE(matrix, param, precision = 1e-5, maxIterations = 1000)
 	[rows, cols] = size(matrix);
-	core = matrix(:, 1 : rows);
-	if max(abs(core - conj(core'))) < 1e-10
-		% for used formulae see Popov's book
-		D = zeros(rows, 1);
-		S = zeros(rows);
-		for i = 1 : rows
-			D(i) = sign(core(i, i) - sum(D(1 : i - 1) .* (S(1 : i - 1, i) .* conj(S(1 : i - 1, i)))));
-			S(i, i) = sqrt(abs( core(i, i) - sum(D(1 : i - 1) .* (S(1 : i - 1, i) .* conj(S(1 : i - 1, i)))) ));
-			for j = i + 1 : rows
-				S(i, j) = (core(i, j) - sum(D(1 : i - 1) .* S(1 : i - 1, i) .* S(1 : i - 1, j))) / (conj(S(i, i)) * D(i));
-			end;
+	matrix = matrix / (norm(matrix, 1));
+	core = diag(ones(rows, 1)) - matrix(:, 1 : rows);
+	rightSide = Solve(diag(ones(rows, 1)) - tril(core, -1), matrix(:, rows + 1 : end));
+	step = @(t)(Solve(diag(ones(rows, 1)) - tril(core, -1), triu(core) * t) + rightSide);
+	approximation = zeros(rows, cols - rows);
+	for iterationsElapsed = 1 : maxIterations
+		change = step(approximation);
+		solution = approximation + param * (change - approximation);
+		if param * norm(change - approximation, 1) < precision
+			return
 		end;
-		rightSide = matrix(:, rows + 1 : end);
-		v = zeros(rows, cols - rows);
-		for i = 1 : rows
-			v(i, :) = ( rightSide(i, :) - sum(((conj(S(1 : i - 1, i)) .* D(1 : i - 1)) * ones(cols - rows, 1)) .* v(1 : i - 1, :)) ) / (S(i, i) * D(i));
-		end;
-		solution = zeros(rows, cols - rows);
-		for i = rows : -1 : 1
-			solution(i, :) = (v(i, :) - sum( (S(i, i + 1 : end) * ones(cols - rows, 1)) .*  solution(i + 1 : end, :)')) / S(i, i);
-		end;
-	else
-		error('Matrix is not hermitian');
+		approximation = solution;
+	end;
+end;
+
+function solution = Solve(matrix, rightSide, method)
+	[rows, cols] = size(rightSide);
+	solution = zeros(rows, cols);
+	for i = 1 : rows
+		solution(i, :) = rightSide(i, :) ./ matrix(i, i);
+		rightSide(i : end, :) -= matrix(i : end, i) * solution(i, :);
 	end;
 end;
