@@ -35,7 +35,7 @@ function coefficients = EvaluateCoefficients(rowLength, derivative)
 end;
 
 function [row, relativeValue] = SelectRow(points, splinePoints, interpolationSpline, t)
-	index = max([0; find((t - splinePoints) >= 0)]) + 1;
+	index = max([1; find((t - splinePoints) >= 0)]);
 	row = interpolationSpline(index, :);
 	relativeValue = t - points(index);
 end;

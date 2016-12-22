@@ -3,7 +3,6 @@ function [] = main(func, points, plotPoints)
 		func = @(t)(t * (1 - t));
 	end;
 	if ~exist('points')
-		%points = sqrt(0 : 0.05 : 1) * 5;
 		points = 0:0.1:1;
 	end;
 	if ~exist('plotPoints')
