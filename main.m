@@ -21,11 +21,11 @@ function [] = main(func, points, plotPoints, condition)
 	if strcmp(class(func), 'function_handle')
 		plot(plotPoints, arrayfun(func, plotPoints), 'k--', plotPoints, arrayfun(splineVal, plotPoints), 'k', points, arrayfun(func, points), 'kx');
 		legend('interpolated function', 'interpolation spline', 'pivot points', 'location', 'southoutside');
+		title(sprintf('Maximal deviation: %e', max(abs(arrayfun(func, plotPoints) - arrayfun(splineVal, plotPoints)))));
 	else
-		plot(plotPoints, arrayfun(splineVal, plotPoints), 'k', points, arrayfun(func, points), 'kx');
+		plot(plotPoints, arrayfun(splineVal, plotPoints), 'k', points, func, 'kx');
 		legend('interpolation spline', 'pivot points', 'location', 'southoutside');
 	end;
-	title(sprintf('Maximal deviation: %e', max(abs(arrayfun(func, plotPoints) - arrayfun(splineVal, plotPoints)))));
 	grid minor;
 	print -dpdf ./result.pdf;
 	figure('units','normalized','outerposition',[0 0 1 1], 'paperorientation', 'landscape');
